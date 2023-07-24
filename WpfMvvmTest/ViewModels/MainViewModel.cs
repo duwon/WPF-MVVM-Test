@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Metrics;
@@ -39,6 +40,20 @@ namespace WpfMvvmTest.ViewModels
                     IsUse = true,
                 }
             };
+
+            NewCommand = new RelayCommand(() => { IsEditing = true; });
+            CancelCommand = new RelayCommand(() => { IsEditing = false; });
         }
+
+        public IRelayCommand NewCommand { get; set; }
+        public IRelayCommand CancelCommand { get; set; }
+
+        private bool _isEditing;
+        public bool IsEditing
+        {
+            get { return _isEditing; }
+            set { SetProperty(ref _isEditing, value); }
+        }
+
     }
 }
