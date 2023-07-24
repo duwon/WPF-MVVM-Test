@@ -9,7 +9,7 @@ namespace WpfMvvmTest.Models
 {
     public class Member : ObservableObject, ICloneable
     {
-        public int Id { get; set; }
+        public int Id { get; set; } = 0;
         private string _name;
         public string Name
         {

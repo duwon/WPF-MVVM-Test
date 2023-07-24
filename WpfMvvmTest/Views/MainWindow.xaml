@@ -76,6 +76,7 @@
             <Button
                 x:Name="SaveButton"
                 Width="80"
+                Command="{Binding SaveCommand}"
                 Content="Save"
                 Visibility="{Binding IsEditing, Converter={StaticResource BoolToVisibilityConverter}}" />
             <Button
