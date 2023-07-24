@@ -45,11 +45,17 @@ namespace WpfMvvmTest.ViewModels
             NewCommand = new RelayCommand(() => { IsEditing = true; });
             CancelCommand = new RelayCommand(() => { IsEditing = false; });
             SelectionChangedCommand = new RelayCommand<object>(OnSelectionChanged);
+            EditCommand = new RelayCommand(() => IsEditing = true, () => EditMember != null);
+            DeleteCommand = new RelayCommand(OnDelete, () => EditMember != null);
+
+            PropertyChanged += MainViewModel_PropertyChanged;
         }
 
         public IRelayCommand NewCommand { get; set; }
         public IRelayCommand CancelCommand { get; set; }
         public IRelayCommand SelectionChangedCommand { get; set; }
+        public IRelayCommand EditCommand { get; set; }
+        public IRelayCommand DeleteCommand { get; set; }
 
         private bool _isEditing;
         public bool IsEditing
@@ -84,6 +90,21 @@ namespace WpfMvvmTest.ViewModels
                 EditMember = (Member)member.Clone();
             }
 
+        }
+
+        private void MainViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(EditMember):
+                    EditCommand.NotifyCanExecuteChanged();
+                    DeleteCommand.NotifyCanExecuteChanged();
+                    break;
+            }
+        }
+
+        private void OnDelete()
+        {
         }
     }
 }
