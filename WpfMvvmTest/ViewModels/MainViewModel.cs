@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using WpfMvvmTest.Bases;
 using WpfMvvmTest.Models;
 
@@ -43,10 +44,12 @@ namespace WpfMvvmTest.ViewModels
 
             NewCommand = new RelayCommand(() => { IsEditing = true; });
             CancelCommand = new RelayCommand(() => { IsEditing = false; });
+            SelectionChangedCommand = new RelayCommand<object>(OnSelectionChanged);
         }
 
         public IRelayCommand NewCommand { get; set; }
         public IRelayCommand CancelCommand { get; set; }
+        public IRelayCommand SelectionChangedCommand { get; set; }
 
         private bool _isEditing;
         public bool IsEditing
@@ -55,5 +58,32 @@ namespace WpfMvvmTest.ViewModels
             set { SetProperty(ref _isEditing, value); }
         }
 
+        private Member _editMember;
+        public Member EditMember
+        {
+            get { return _editMember; }
+            set { SetProperty(ref _editMember, value); }
+        }
+
+        private void OnSelectionChanged(object para)
+        {
+            var args = para as SelectionChangedEventArgs;
+            if (args == null)
+            {
+                return;
+            }
+
+            if (args.AddedItems.Count == 0)
+            {
+                EditMember = null;
+                return;
+            }
+            else
+            {
+                var member = args.AddedItems[0] as Member;
+                EditMember = (Member)member.Clone();
+            }
+
+        }
     }
 }
