@@ -176,5 +176,16 @@
                 Margin="4"
                 IsChecked="{Binding EditMember.IsUse, Mode=TwoWay}" />
         </Grid>
+
+        <Grid
+            x:Name="MultiplierGrid"
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="0,207,0,0">
+            <Frame                 
+                Grid.Row="0"
+                Grid.Column="0"
+                Source="MultiplierView.xaml"/>
+        </Grid>
     </Grid>
 </Window>
