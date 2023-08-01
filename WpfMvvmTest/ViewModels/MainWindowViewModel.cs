@@ -53,6 +53,7 @@ namespace WpfMvvmTest.ViewModels
             PropertyChanged += MainViewModel_PropertyChanged;
         }
 
+
         public IRelayCommand NewCommand { get; set; }
         public IRelayCommand CancelCommand { get; set; }
         public IRelayCommand SelectionChangedCommand { get; set; }
@@ -160,5 +161,13 @@ namespace WpfMvvmTest.ViewModels
             IsEditing = false;
             EditMember = null;
         }
+
+        private bool _menuToggle;
+        public bool MenuToggle
+        {
+            get { return _menuToggle; }
+            set { SetProperty(ref _menuToggle, value); }
+        }
+
     }
 }
