@@ -40,6 +40,7 @@ namespace WpfMvvmTest
 
             //ViewModel 등록
             services.AddTransient(typeof(MainViewModel));
+            services.AddTransient(typeof(MemberViewModel));
             services.AddTransient(typeof(MultiplierViewModel));
 
             return services.BuildServiceProvider();
